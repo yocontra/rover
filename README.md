@@ -18,6 +18,8 @@
 </tr>
 </table>
 
+![rover](http://www.brookstone.com/webassets/product_images/300x300/792593.jpg)
+
 ## Slideshow explaining this
 
 http://slid.es/contra/rover
