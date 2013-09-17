@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+var rover = require('../');
+var keypress = require('keypress');
+var async = require('async');
+
+console.log("MAKE SURE YOU ARE CONNECTED BEFORE RUNNING");
+
+var client = rover.createClient();
+
+var controls = {
+  w: function(k) {
+    client.forward();
+  },
+  a: function(k) {
+    client.left();
+  },
+  s: function(k) {
+    client.backward();
+  },
+  d: function(k) {
+    client.right();
+  },
+  up: function(k) {
+    client.cameraUp(10);
+  },
+  down: function(k) {
+    client.cameraDown(10);
+  },
+  space: function(k) {
+    client.stop();
+  }
+};
+
+keypress(process.stdin);
+
+process.stdin.on('keypress', function(_, k){
+  if (!k) return;
+  if (k.ctrl && k.name === 'c') return process.exit();
+  if (controls[k.name]){
+    controls[k.name](k);
+  }
+});
+
+process.stdin.setRawMode(true);
+process.stdin.resume();
+
+console.log('w - forward');
+console.log('a - left');
+console.log('s - backward');
+console.log('d - right');
+console.log('arrow up - camera up');
+console.log('arrow down - camera down');
+console.log('<space> - stop');
