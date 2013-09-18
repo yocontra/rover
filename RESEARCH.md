@@ -1,3 +1,5 @@
+Web Panel: `http://192.168.1.100/`
+
 Default username: `AC13`
 Default password: `AC13`
 
@@ -11,7 +13,9 @@ Wheel motor controls: `wifi_car_control.cgi?command={wheel number}&param={speed 
 
 Camera motor controls: `decoder_control.cgi?command={0 for up 2 for down}&degree={degrees to move}`
 
-Web Panel: `http://AC13:AC13@192.168.1.100/`
+Changing device config: Each querystring key/value after `set_params.cgi?next_url=reboot.html&reboot=1` will modify the config
+
+Reboots take 45 seconds apparently according to some of the code but I doubt it.
 
 Binary Handshake:
 
