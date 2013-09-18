@@ -28,7 +28,6 @@ The flow for 1.0 went like this:
 1. HTTP req to check_user
 2. Open command socket
 3. Open image socket
-
 4. Command 1, 2, and 3 to command socket
 5. Command 4 to image socket with response from command socket after handshake
 
