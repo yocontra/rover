@@ -20,9 +20,9 @@
 
 ![rover](http://www.brookstone.com/webassets/product_images/300x300/792593.jpg)
 
-## Slideshow explaining this
+## Disclaimer
 
-http://slid.es/contra/rover
+This library is still under rapid development. The API will likely change as I continue to reverse engineer the rover. Use at your own risk.
 
 ## Usage
 
@@ -39,6 +39,19 @@ client.left(cb);
 
 client.cameraUp(30, cb); // 30 deg up
 client.cameraDown(30, cb); // 30 deg down
+
+client.config(function(err, cfg){
+  // get all device config info
+})
+
+client.config('power', function(err, power){
+  // get specific field from device config
+});
+
+client.networks(function(err, wifiNetworks){
+  // list all wifi networks the rover can pick up
+});
+
 ```
 
 ## CLI

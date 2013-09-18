@@ -1,7 +1,7 @@
 {
    "name":"rover",
    "description":"A node.js client for controlling BrookStone Rover 2.0s",
-   "version":"0.0.1",
+   "version":"0.0.2",
    "homepage":"http://github.com/wearefractal/rover",
    "repository":"git://github.com/wearefractal/rover.git",
    "author":"Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
@@ -14,7 +14,8 @@
    "dependencies":{
       "request":"*",
       "async":"*",
-      "keypress":"*"
+      "keypress":"*",
+      "contextify":"*"
    },
    "devDependencies":{
       "mocha":"*",
