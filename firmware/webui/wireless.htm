@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<style>
+BODY {
+	MARGIN: 0px; BACKGROUND-COLOR: linen; font: arial;
+}
+</style>
+<script src="get_params.cgi"></script>
+<script src="get_wifi_scan_result.cgi"></script>
+<script>
+if (alias=='') alias=top.str_anonymous;
+top.alias=alias;
+top.document.title=top.str_device+'('+alias+')';
+function encrypt_onchanged()
+{
+	tr_authtype.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_defkey.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_keyformat.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_key1.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_key2.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_key3.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_key4.style.display=(encrypt.selectedIndex==1)?'':'none';
+	tr_wpa_psk.style.display=(encrypt.selectedIndex>1)?'':'none';
+}
+function enable_onclick()
+{
+	tr_ssid.style.display=enable.checked?'':'none';
+	tr_encrypt.style.display=enable.checked?'':'none';
+	if (enable.checked)
+	{
+		encrypt_onchanged();
+	}
+	else
+	{
+		tr_authtype.style.display='none';
+		tr_defkey.style.display='none';
+		tr_keyformat.style.display='none';
+		tr_key1.style.display='none';
+		tr_key2.style.display='none';
+		tr_key3.style.display='none';
+		tr_key4.style.display='none';
+		tr_wpa_psk.style.display='none';
+	}
+}
+function body_onload()
+{
+	wifi_scan_bu.disabled=false;
+	if(wifi_ssid == '')
+	    enable.checked = false;
+	else
+	    enable.checked = true;
+	ssid.value=wifi_ssid;
+	encrypt.selectedIndex=wifi_encrypt;
+	authtype.selectedIndex=wifi_authtype;
+	defkey.selectedIndex=wifi_defkey;
+	keyformat.selectedIndex=wifi_keyformat;
+	key1.value=wifi_key1;
+	key2.value=wifi_key2;
+	key3.value=wifi_key3;
+	key4.value=wifi_key4;
+	key1_bits.selectedIndex=wifi_key1_bits;
+	key2_bits.selectedIndex=wifi_key2_bits;
+	key3_bits.selectedIndex=wifi_key3_bits;
+	key4_bits.selectedIndex=wifi_key4_bits;
+	wpa_psk.value=wifi_wpa_psk;
+	for(i=0;i<ap_number;i++)
+	{
+	if(ap_mode[i] == 1)
+	    continue;
+	oOption=document.createElement("OPTION");
+	wifi_list.options.add(oOption);
+	s=ap_ssid[i]+'['+ap_bssid[i]+']    '+(ap_mode[i]?'adhoc':'infra')+'    ';
+	if(ap_security[i]==0)
+		s+=top.str_none;
+	else if(ap_security[i]==1)
+		s+='WEP';
+	else if((ap_security[i]>1)&&(ap_security[i]<6))
+		s+='WPA/WPA2-PSK';
+	else if(ap_security[i]==6)
+		s+='WPA/WPA2';
+	oOption.innerHTML=s;
+	if(ap_security[i]==6) oOption.style.color='gray';
+	}
+	enable_onclick();
+	
+	ip_inp.value = ip;
+	mask_inp.value = mask;
+	gateway_inp.value = gateway;
+	port_inp.value = port;
+}
+function wifi_list_onclick()
+{
+	if (wifi_list.options.length>0)
+	{
+		i=wifi_list.selectedIndex;
+		if(ap_security[i]==6) return;
+		enable.checked=true;
+		ssid.value=ap_ssid[i];
+		encrypt.selectedIndex=ap_security[i];
+		enable_onclick();
+	}
+}
+function wifi_scan()
+{
+	wifi_scan_bu.disabled=true;
+	action.window.location.href='wifi_scan.cgi';
+	wifi_scan_info.innerHTML=top.str_wifi_scan_info;
+	setTimeout('location.reload()',4000);
+}
+function set_wireless()
+{
+	parent.content.reboot_seconds=45;
+		
+	url='set_params.cgi?next_url=reboot.htm&reboot=1';
+    ip_p = '&ip='+ip_inp.value+'&mask='+mask_inp.value+'&gateway='+gateway_inp.value+'&dns='+gateway_inp.value;
+	ssid_p='&wifi_ssid=';
+	encrypt_p='&wifi_encrypt=0';
+	authtype_p='&wifi_authtype=0';
+	keyformat_p='&wifi_keyformat=0';
+	defkey_p='&defkey=0';
+	key1_p='&wifi_key1=';
+	key2_p='&wifi_key2=';
+	key3_p='&wifi_key3=';
+	key4_p='&wifi_key4=';
+	key1_bits_p='&wifi_key1_bits=0';
+	key2_bits_p='&wifi_key2_bits=0';
+	key3_bits_p='&wifi_key3_bits=0';
+	key4_bits_p='&wifi_key4_bits=0';
+	wpa_psk_p='&wifi_wpa_psk=';
+	if (enable.checked)
+	{
+		ssid_p+=encodeURIComponent(ssid.value);
+		encrypt_p='&wifi_encrypt='+encrypt.selectedIndex;
+		if (encrypt.selectedIndex==1)
+		{
+			authtype_p='&wifi_authtype='+authtype.selectedIndex;
+			keyformat_p='&wifi_keyformat='+keyformat.selectedIndex;
+			defkey_p='&wifi_defkey='+defkey.selectedIndex;
+			key1_p+=encodeURIComponent(key1.value);
+			key2_p+=encodeURIComponent(key2.value);
+			key3_p+=encodeURIComponent(key3.value);
+			key4_p+=encodeURIComponent(key4.value);
+			key1_bits_p='&wifi_key1_bits='+key1_bits.selectedIndex;
+			key2_bits_p='&wifi_key2_bits='+key2_bits.selectedIndex;
+			key3_bits_p='&wifi_key3_bits='+key3_bits.selectedIndex;
+			key4_bits_p='&wifi_key4_bits='+key4_bits.selectedIndex;
+		}
+		else if (encrypt.selectedIndex>1)
+		{
+			wpa_psk_p+=encodeURIComponent(wpa_psk.value);
+		}
+	}
+	location=url+ip_p+ssid_p+encrypt_p+authtype_p+keyformat_p+defkey_p+key1_p+key2_p+key3_p+key4_p+key1_bits_p+key2_bits_p+key3_bits_p+key4_bits_p+wpa_psk_p;
+
+}
+</script>	
+<body onLoad="body_onload()"  style="overflow-x:hidden;overflow-y:auto">
+<iframe name="action_zone" style="display:none"></iframe>
+<table width="630" height="480"><tr><td class="v1 pad2 bc4"><table width="100%" class="v2 f14 mid01">
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write(top.str_wireless_config);</script></strong></td></tr>
+	<tr id="tr_wifi_list" height="100"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_list);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<SELECT id="wifi_list" size="2" class="s5" onclick="wifi_list_onclick()" style="width: 292px"></SELECT><br>&nbsp;&nbsp;<button id="wifi_scan_bu" name="wifi_scan_bu" onClick="wifi_scan()"><script>document.write(top.str_scan);</script></button>&nbsp;&nbsp;<span id="wifi_scan_info" name="wifi_scan_info" class="f14"></span></td></tr>
+	<tr height="25"><td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_wifi_choice);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="enable" type="checkbox" onClick="enable_onclick()"></td></tr>
+	<tr id="tr_ssid" height="25"><td class="bc2 mid04">&nbsp;&nbsp;SSID</td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="ssid" maxlength="32"></td></tr>
+	<tr id="tr_encrypt" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_encryption);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<select id="encrypt" onChange="encrypt_onchanged()"><option><script>document.write(top.str_none);</script></option><option>WEP</option><option>WPA Personal (TKIP)</option><option>WPA Personal (AES)</option><option>WPA2 Personal (AES)</option><option>WPA2 Personal (TKIP)</option></select></td></tr>
+	<tr id="tr_authtype" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_authtype);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<select id="authtype"><option><script>document.write(top.str_auth_open);</script></option><option><script>document.write(top.str_auth_share);</script></option></select></td></tr>
+	<tr id="tr_keyformat" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_keytype);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<select id="keyformat"><option><script>document.write(top.str_hex);</script></option><option><script>document.write(top.str_ascii);</script></option></select></td></tr>
+	<tr id="tr_defkey" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_wep_key_index);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<select id="defkey"><option>1</option><option>2</option><option>3</option><option>4</option></select></td></tr>
+	<tr id="tr_key1" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_wep_key1);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="key1" maxlength="26">&nbsp;&nbsp;<select id="key1_bits"><option>64 bits</option><option>128 bits</option></td></tr>
+	<tr id="tr_key2" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_wep_key2);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="key2" maxlength="26">&nbsp;&nbsp;<select id="key2_bits"><option>64 bits</option><option>128 bits</option></td></tr>
+	<tr id="tr_key3" height="25"><td class="bc2 mid04" style="height: 25px">&nbsp;&nbsp;<script>document.write(top.str_wifi_wep_key3);</script></td><td class="mid02" style="width: 353px; height: 25px">&nbsp;&nbsp;<input id="key3" maxlength="26">&nbsp;&nbsp;<select id="key3_bits"><option>64 bits</option><option>128 bits</option></td></tr>
+	<tr id="tr_key4" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_wifi_wep_key4);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="key4" maxlength="26">&nbsp;&nbsp;<select id="key4_bits"><option>64 bits</option><option>128 bits</option></td></tr>
+	<tr id="tr_wpa_psk" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_auth_share);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="wpa_psk" maxlength="64"></td></tr>
+
+	<tr id="tr_ip" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_ip);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="ip_inp" maxlength="15" onKeyUp="value=value.replace(/[^\d.]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d.]/g,''))"></td></tr>
+	<tr id="tr_mask" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_mask);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="mask_inp" maxlength="15" onKeyUp="value=value.replace(/[^\d.]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d.]/g,''))"></td></tr>
+	<tr id="tr_gateway" height="25"><td class="bc2 mid04">&nbsp;&nbsp;<script>document.write(top.str_gateway);</script></td><td class="mid02" style="width: 353px">&nbsp;&nbsp;<input id="gateway_inp" maxlength="15" onKeyUp="value=value.replace(/[^\d.]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d.]/g,''))"></td></tr>
+	<tr height="25"><td class="bc2 mid04" style="height: 25px">&nbsp;&nbsp;<script>document.write(top.str_port);</script></td><td class="mid02" style="height: 25px; width: 353px;">&nbsp;&nbsp;<input id="port_inp" maxlength="5" onKeyUp="value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"></td></tr>
+
+
+	<tr height="25"><td class="h2 mid03" colspan="2"><button onClick="set_wireless()"><script>document.write(top.str_set);</script></button>&nbsp;&nbsp;&nbsp;&nbsp;<button onClick="location.reload()"><script>document.write(top.str_refresh);</script></button></td></tr>
+</table></td></tr></table>
+<iframe id="action" name="action" marginheight="0" marginwidth="0" width="0" height="0" frameborder="0" scrolling="no"></iframe>
+</body>
+</html>

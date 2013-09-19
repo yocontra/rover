@@ -1,0 +1,11 @@
+mount -t proc none /proc
+mount -t ramfs none /usr
+mount -t ramfs none /swap
+mount -t ramfs none /var/run
+mount -t ramfs none /etc
+mount -t ramfs none /flash
+mount -t ramfs none /home
+mount -t ramfs none /tmp
+mkdir /tmp/run
+camera&
+sh

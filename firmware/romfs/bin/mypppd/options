@@ -1,0 +1,10 @@
+mtu 1492
+mru 1492
+nodetach
+lcp-echo-interval 10
+lcp-echo-failure 6
+persist
+noipdefault
+defaultroute
+usepeerdns
+

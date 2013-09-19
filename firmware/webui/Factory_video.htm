@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script src="get_wifi_link.cgi"></script>
+<script language=javascript>
+function light()
+{
+    rssi.innerHTML='&nbsp;'+signal_level;
+}
+function light_test()
+{
+	ipcam.StopVideo();
+    location='Factory_mic.htm';
+}
+function back()
+{
+    location='Factory_light.htm';
+}
+function body_onload()
+{
+	var port;
+	if (location.port=='')
+		port=80;
+	else
+		port=location.port;
+	if (ipcam.MonitorStatus!=0)
+		return;
+	re=ipcam.MonitorConnect(location.hostname,port,top.user,top.pwd);
+	if (re)
+		top.showerror("error");
+}
+function ipcam_OnMonitorConnectResult(index,result,pri) 
+{
+	ipcam.PlayVideo();
+}
+function ipcam_OnMonitorDisconnected(index,reason) 
+{	
+}
+function ipcam_OnPlayVideoResult(index,result) 
+{
+}
+function ipcam_OnPlayAudioResult(index,result) 
+{
+}
+function ipcam_OnStartTalkResult(index,result) 
+{
+}
+function ipcam_OnVideoStopped(index,reason) 
+{
+	if (reason==ERROR_TIMEOUT)
+		ipcam.PlayVideo();
+}
+function ipcam_OnAudioStopped(index,reason) 
+{
+}
+function ipcam_OnTalkStopped(index,reason) 
+{
+}
+</script>
+<SCRIPT FOR="ipcam" EVENT="OnMonitorConnectResult(result,pri)">ipcam_OnMonitorConnectResult(this.name,result,pri)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnMonitorDisconnected(reason)">ipcam_OnMonitorDisconnected(this.name,reason)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnPlayVideoResult(result)">ipcam_OnPlayVideoResult(this.name,result)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnPlayAudioResult(result)">ipcam_OnPlayAudioResult(this.name,result)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnStartTalkResult(result)">ipcam_OnStartTalkResult(this.name,result)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnVideoStopped(reason)">ipcam_OnVideoStopped(this.name,reason)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnAudioStopped(reason)">ipcam_OnAudioStopped(this.name,reason)</SCRIPT>
+<SCRIPT FOR="ipcam" EVENT="OnTalkStopped(reason)">ipcam_OnTalkStopped(this.name,reason)</SCRIPT>
+<body onload = "body_onload()">
+<table width="640" height="480" align="center"><tr><td class="v1 pad2 bc2 rect_top"><table width="100%" class="v2 f14">
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write("图像测试");</script></strong></td></tr>
+	<tr><td height = 20></td></tr>
+	<tr>
+	<td height="240">
+	    <table><tr>
+	        <td width =320>
+	            <OBJECT id="ipcam"  codeBase="codebase/DVM_IPCam2.ocx#version=0,0,0,36" height="240" width="320" classid="clsid:A4150320-98EC-4DB6-9BFB-EBF4B6FBEB16"></OBJECT>
+	        </td>
+	        <td align=left valign=bottom>
+	            &nbsp;&nbsp;&nbsp;<script>document.write("RSSI：");</script>
+	        </td>
+	        <td align=left valign=bottom id="rssi">
+	        </td>
+	    </tr></table>
+	</td>
+	</tr>
+	<tr><td height = 20></td></tr>
+	<tr>
+	    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:light()"><script>document.write("测试");</script></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:back()"><script>document.write("返回");</script></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:light_test()"><script>document.write("下一个测试项");</script></a></td>
+	</tr>
+</table></td></tr></table>
+</body>
+</html>

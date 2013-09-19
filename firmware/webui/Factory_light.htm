@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script language=javascript>
+var status = 1;
+function wifi_car_control(command)
+{
+	action_zone.location='decoder_control.cgi?command='+command;
+}
+function light()
+{
+    if(status)
+    {
+        light_led.src = light_down.src;
+        wifi_car_control(94);
+        status = 0;
+    }
+    else
+    {
+        light_led.src = light_up.src;
+        wifi_car_control(95);    
+        status = 1;
+    }       
+}
+function light_test()
+{
+    wifi_car_control(95);
+    location='Factory_video.htm';
+}
+</script>
+<body>
+<iframe name="action_zone" style="display:none"></iframe>
+<table width="640" height="480" align="center"><tr><td class="v1 pad2 bc2 rect_top"><table width="100%" class="v2 f14">
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write("红外灯测试");</script></strong></td></tr>
+	<tr><td height = 20></td></tr>
+	<tr>
+	    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img id=light_led src="images/light_up.gif"/>
+	</tr>
+	<tr><td height = 20></td></tr>
+	<tr>
+	    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:light()"><script>document.write("测试");</script></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:light_test()"><script>document.write("下一个测试项");</script></a></td>
+	</tr>
+</table></td></tr></table>
+<img id="light_down" src="images/light_down.gif" class="ih">
+<img id="light_up" src="images/light_up.gif" class="ih">
+</body>
+</html>

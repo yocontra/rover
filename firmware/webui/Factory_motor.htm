@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script language=javascript>
+var timerid;
+function stop_all()
+{
+	clearTimeout(timerid);
+    motor1_action_zone.location='wifi_car_control.cgi?command=0&param=10';
+	motor2_action_zone.location='wifi_car_control.cgi?command=3&param=10';
+}
+function up()
+{
+	motor1_action_zone.location='wifi_car_control.cgi?command=1&param=10';
+	motor2_action_zone.location='wifi_car_control.cgi?command=4&param=10';
+	timerid=setTimeout('up()', 100);
+}
+function down()
+{
+	motor1_action_zone.location='wifi_car_control.cgi?command=2&param=10';
+	motor2_action_zone.location='wifi_car_control.cgi?command=5&param=10';
+	timerid=setTimeout('down()', 100);
+}
+function left()
+{
+	motor1_action_zone.location='wifi_car_control.cgi?command=1&param=10';
+	timerid=setTimeout('left()', 100);
+}
+function right()
+{
+	motor2_action_zone.location='wifi_car_control.cgi?command=4&param=10';
+	timerid=setTimeout('right()', 100);
+}
+function up_onmousedown() 
+{
+	stop_all();
+    up();
+}
+function up_onmouseup() 
+{
+    stop_all();
+}
+function down_onmousedown() 
+{
+	stop_all();
+    down();    
+}
+function down_onmouseup() 
+{
+    stop_all();
+}
+function left_onmousedown() 
+{
+	stop_all();
+    left();	
+}
+function left_onmouseup() 
+{
+    stop_all();
+}
+function right_onmousedown() 
+{
+	stop_all();
+    right();	
+}
+function right_onmouseup() 
+{
+    stop_all();
+}
+function back()
+{
+    location = 'Factory_mic.htm';
+}
+</script>
+<body>
+<iframe name="motor1_action_zone" style="display:none"></iframe>
+<iframe name="motor2_action_zone" style="display:none"></iframe>
+<table width="640" height="480"  align="center"><tr><td class="v1 pad2 bc2 rect_top"><table width="100%" class="v2 f14">
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write("转动测试");</script></strong></td></tr>
+	<tr><td height = 20></td></tr>
+	<tr><td><table>
+	<tr height = 38>
+	    <td></td><td width = 38><img onMouseDown="up_onmousedown()" onMouseUp="up_onmouseup()" id = up src="images/up.bmp" /></td> <td width = 102></td>       
+	</tr>
+	<tr height = 38>
+	    <td><img onMouseDown="left_onmousedown()" onMouseUp="left_onmouseup()" id = left src="images/left.bmp" /></td><td></td><td><img onMouseDown="right_onmousedown()" onMouseUp="right_onmouseup()" id = right src="images/right.bmp" /></td>    
+	</tr>
+	<tr height = 38>
+	    <td></td> <td><img onMouseDown="down_onmousedown()" onMouseUp="down_onmouseup()" id = down src="images/down.bmp" /></td> <td></td>    
+	</tr>
+	</table></td></tr>
+	<tr><td height = 20></td></tr>
+		<tr>
+	    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:back()"><script>document.write("返回");</script></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:window.opener=null;window.close();"><script>document.write("退出");</script></a></td>
+	</tr>
+</table></td></tr>
+</table>
+</body>
+</html>

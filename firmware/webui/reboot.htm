@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+</head>
+<script>
+var seconds;
+function timer()
+{
+	seconds--;
+	left_seconds.innerHTML='&nbsp;&nbsp;'+seconds;
+	if (!seconds)
+		location='status.htm';
+	else
+		setTimeout('timer()',1000);	
+}
+function body_onload()
+{
+	seconds=parent.content.reboot_seconds;
+	left_seconds.innerHTML='&nbsp;&nbsp;'+seconds;
+	setTimeout('timer()',1000);
+}
+</script>	
+<body onLoad="body_onload()" style="overflow:hidden">
+<table border="0" cellpadding="0" cellspacing="0" width="640" height="480"><tr valign="top"><td style="padding-left:10px;padding-right:10px;padding-top:20px;padding-bottom:20px;background-color:linen"><table border="0" cellpadding="0" cellspacing="0" style="font-size:14px"><tr><td><script>document.write(top.str_rebootinfo);</script></td><td id=left_seconds> </td></tr></table></td></tr></table>
+</body>
+</html>

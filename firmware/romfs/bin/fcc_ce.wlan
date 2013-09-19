@@ -1,0 +1,43 @@
+#! /bin/sh
+
+TYPE=tx       #[tx,rx]
+TEMP=START    #[START,STOP]
+
+DEVICE=eth1
+CHANNEL=1     #[1...13]
+RATE=12       #[1,2,5,11,6,9,12,18,24,36,48,54]  [*note:5 means 5.5M]
+POWER=12      #[0...63,64]                       [*note:64 means use default setting]
+
+if [ "$TEMP" = "STOP" ] ; then
+    if [ "$TYPE" = "tx" ] ; then
+     echo "stop TX"
+     wetctl $DEVICE $TYPE $TEMP
+    fi
+    if [ "$TYPE" = "rx" ] ; then
+     echo "stop RX"
+     wetctl $DEVICE $TYPE $CHANNEL $TEMP
+    fi    
+
+ifconfig $DEVICE down
+exit 0
+fi
+			
+# Open device
+ifconfig $DEVICE up
+
+if [ "$TYPE" = "tx" ] ; then			
+     echo "set channels & rate & power" 
+wetctl $DEVICE config $CHANNEL $RATE $POWER
+fi
+
+
+if [ "$TYPE" = "tx" ] ; then
+     echo "start TX"
+wetctl $DEVICE $TYPE $TEMP
+fi
+if [ "$TYPE" = "rx" ] ; then
+     echo "start RX"
+wetctl $DEVICE $TYPE $CHANNEL $TEMP
+fi
+
+###################### Script End #############################################

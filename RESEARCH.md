@@ -1,5 +1,7 @@
 ## Web
 
+More details on CGI script parameters can be found at http://corz.org/windows/software/oodlecam/files/IP%20Camera%20CGI%20Manual%20[from%20Tenvis%203815%20SDK].pdf but most of those are incorrect or missing.
+
 Web Panel: `http://192.168.1.100/`
 
 Default username: `AC13`
@@ -11,9 +13,13 @@ Listing of device config: `get_params.cgi`
 
 Listing of network info: `wifi_scan.cgi` then `get_wifi_scan_result.cgi`
 
+Firmware dump: `backup_params.cgi`
+
 Wheel motor controls: `wifi_car_control.cgi?command={wheel number}&param={speed 1-10}`
 
 Camera motor controls: `decoder_control.cgi?command={0 for up 2 for down}&degree={degrees to move}`
+
+Camera resolution/brightness/contrast control: `camera_control.cgi`
 
 Changing device config: Each querystring key/value after `set_params.cgi?next_url=reboot.html&reboot=1` will modify the config
 

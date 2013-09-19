@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script language=javascript>
+function firmware_onclick()
+{
+	parent.content.reboot_seconds=60;
+	if (confirm(top.str_sure_upgare))
+	{
+        var theform=document.firmware; 
+        theform.action = 'upgrade_firmware.cgi?next_url=reboot.htm';
+        theform.submit();
+    } 
+}
+function htmls_onclick()
+{
+	parent.content.reboot_seconds=60;
+	if (confirm(top.str_sure_upgare))
+	{
+        var theform=document.htmls; 
+        theform.action = 'upgrade_htmls.cgi?next_url=reboot.htm';
+        theform.submit(); 
+    }
+}
+</script>
+<body  style="overflow:hidden;overflow-x:hidden">
+<table width="640" height="480" align="center"><tr><td class="v1 pad2 bc4"><table width="100%" class="v2 f14 mid01" style="font-family:Arial">
+<DIV>
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write(top.str_upgrade_firmware);</script></strong></td></tr>
+</DIV>
+	<tr height="25">
+	    <td class="bc2 mid04 " width="40%">&nbsp;&nbsp;<script>document.write(top.str_upgrade_swware);</script></td>
+        <form id = "firmware" name="firmware"  method="post" enctype="multipart/form-data">
+            <td class="mid04">
+                <input type="file" name="file" size="20">&nbsp;&nbsp;<button onClick="firmware_onclick()" ><script>document.write(top.str_set);</script></button>
+            </td>
+        </form>
+	</tr>
+	<tr height="25">
+	    <td class="bc2 mid05 " width="40%">&nbsp;&nbsp;<script>document.write(top.str_upgrade_awware);</script></td>
+	    <form id="htmls" name="htmls" method="post" enctype="multipart/form-data">
+	        <td class="mid05">
+	            <input type="file" name="file" size="20">&nbsp;&nbsp;<button onClick="htmls_onclick()" ><script>document.write(top.str_set);</script></button>
+	        </td>
+	    </form>
+    </tr>
+</table></td></tr></table>
+</body>
+</html>
