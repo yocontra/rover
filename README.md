@@ -52,6 +52,17 @@ client.networks(function(err, wifiNetworks){
   // list all wifi networks the rover can pick up
 });
 
+client.wifi(function(err, info){
+  // get info on wireless connection
+  // like noise, strength, etc.
+});
+
+client.recordLight(true, function(err){
+  // turn little red camera light on
+  client.recordLight(false, function(err){
+    // turn little red camera light off
+  }); 
+});
 ```
 
 ## CLI

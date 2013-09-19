@@ -1,6 +1,6 @@
 ## Web
 
-More details on CGI script parameters can be found at http://corz.org/windows/software/oodlecam/files/IP%20Camera%20CGI%20Manual%20[from%20Tenvis%203815%20SDK].pdf but most of those are incorrect or missing.
+More details on CGI script parameters can be found here https://gist.github.com/prasincs/4465801 and here http://corz.org/windows/software/oodlecam/files/IP%20Camera%20CGI%20Manual%20[from%20Tenvis%203815%20SDK].pdf but most of those are incorrect or missing.
 
 Web Panel: `http://192.168.1.100/`
 

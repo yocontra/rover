@@ -1,12 +1,12 @@
 {
    "name":"rover",
    "description":"A node.js client for controlling BrookStone Rover 2.0s",
-   "version":"0.0.2",
+   "version":"0.0.3",
    "homepage":"http://github.com/wearefractal/rover",
    "repository":"git://github.com/wearefractal/rover.git",
    "author":"Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
    "main":"./index.js",
-   "keywords":["rover","robot","drone"],
+   "keywords":["rover","robot","drone","wifi"],
 
    "bin":{
       "rover":"./bin/rover"
