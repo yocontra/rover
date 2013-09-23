@@ -27,24 +27,9 @@ Reboots take 45 seconds apparently according to some of the code but I doubt it.
 
 ## Wire Protocol
 
-Nobody has cracked this yet for the 2.0 so some reversing of the firmware/apps will be needed.
-
-The flow for 1.0 went like this:
-
-1. HTTP req to check_user
-2. Open command socket
-3. Open image socket
-4. Command 1, 2, and 3 to command socket
-5. Command 4 to image socket with response from command socket after handshake
-
-
 CommandEncoder reversed from the Android APK: https://gist.github.com/Contra/6678097
 
-### Estimated Flow
-
-This is being evolved.
-
-#### Constants
+### Constants
 
 ```javascript
 AUDIO_DATA = 2;
@@ -75,7 +60,7 @@ WIFICAR_OP = "MO_O";
 WIFICAR_VIDEO_OP = "MO_V";
 ```
 
-#### Write Protocol
+### Write Protocol
 
 Pseudo-code
 
@@ -101,9 +86,9 @@ var fill = function(len, val) {
 };
 ```
 
-#### Commands
+### Commands
 
-##### Keep Alive
+#### Keep Alive
 
 ```javascript
 var data = [];
@@ -111,7 +96,7 @@ var data = [];
 createCommand("MO_O", 255, data);
 ```
 
-##### Fetch Battery Power
+#### Fetch Battery Power
 
 ```javascript
 var data = [];
@@ -119,7 +104,7 @@ var data = [];
 createCommand("MO_O", 251, data);
 ```
 
-##### Start Audio
+#### Start Audio
 
 ```javascript
 var data = [int8ToByteArray(1)];
@@ -127,7 +112,7 @@ var data = [int8ToByteArray(1)];
 createCommand("MO_O", 8, data);
 ```
 
-##### End Audio
+#### End Audio
 
 ```javascript
 var data = [int8ToByteArray(1)];
@@ -135,16 +120,16 @@ var data = [int8ToByteArray(1)];
 createCommand("MO_O", 10, data);
 ```
 
-##### Start Video
+#### Start Video
 
 ```javascript
 var data = fill(4, 0x00);
 data[0] = int8ToByteArray(1);
 
-createCommand("MO_O", 10, data);
+createCommand("MO_O", 4, data);
 ```
 
-##### End Audio
+#### End Video
 
 ```javascript
 var data = [];
