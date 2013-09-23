@@ -1,6 +1,3 @@
-- Support changing config options via set_params
-- Sugar for changing wifi networks
-- Sugar for rebooting
 - Camera stream
 - Microphone stream
 - Audio out stream
