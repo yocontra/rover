@@ -65,6 +65,13 @@ WIFICAR_VIDEO_OP = "MO_V";
 Pseudo-code
 
 ```javascript
+var fill = function(len, val) {
+  var out = new Buffer(len);
+  buffer.fill(val);
+  return out;
+};
+
+// int16ToByteArray and int32ToByteArray can be found in the java code
 var createCommand = function(header, op, content) {
   var out = new Buffer();
   out.write(header);
@@ -75,14 +82,6 @@ var createCommand = function(header, op, content) {
   out.write(fill(4, 0x00)); // new byte[4]
   out.write(content);
   return out
-};
-
-var fill = function(len, val) {
-  var out = new Array(len);
-  while (--len >= 0) {
-    out[len] = val;
-  }
-  return out;
 };
 ```
 
@@ -139,4 +138,4 @@ createCommand("MO_O", 6, data);
 
 ### Read Protocol
 
-No idea.
+No idea yet.
