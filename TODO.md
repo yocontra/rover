@@ -1,3 +1,0 @@
-- Camera stream
-- Microphone stream
-- Audio out stream
