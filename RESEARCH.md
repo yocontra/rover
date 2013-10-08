@@ -140,3 +140,10 @@ createCommand("MO_O", 6, data);
 ### Read Protocol
 
 No idea.
+
+```javascript
+// TODO
+// https://gist.github.com/Contra/6678097#file-commandencoder-java-L400
+// and
+// https://gist.github.com/Contra/6678097#file-commandencoder-java-L530
+```
