@@ -20,6 +20,8 @@
 
 ![rover](http://www.brookstone.com/webassets/product_images/300x300/792593.jpg)
 
+Blog post about the creation of this [on medium](https://medium.com/p/6346e3f827f1)
+
 ## Disclaimer
 
 This library is still under rapid development. The API will likely change as I continue to reverse engineer the rover. Use at your own risk.
