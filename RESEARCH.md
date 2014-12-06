@@ -27,7 +27,7 @@ Reboots take 45 seconds apparently according to some of the code but I doubt it.
 
 ## Wire Protocol
 
-CommandEncoder reversed from the Android APK: https://gist.github.com/Contra/6678097
+CommandEncoder reversed from the Android APK: https://gist.github.com/contra/6678097
 
 ### Constants
 
